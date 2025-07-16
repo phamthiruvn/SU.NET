@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Three.js - DecalGeometry Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+            color: #fff;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            display: block;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info">
+        <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - DecalGeometry Test<br />
+        Click on the model to add decals.
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+
+    <script type="module">
+        import * as THREE from 'three';
+
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        let liquidTexture = null;
+
+        textureLoader.load("map.jpg", (texture) => {
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            texture.encoding = THREE.sRGBEncoding;
+            liquidTexture = texture;
+
+        });
+
+        //new liquid material
+        const liquidMaterial = new THREE.MeshPhysicalMaterial({
+            map: liquidTexture,
+        });
+
+
+        // Mesh
+        const geometry = new THREE.BoxGeometry();
+        const cube = new THREE.Mesh(geometry, liquidMaterial);
+        scene.add(cube);
+
+        // Lighting
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(2, 2, 2);
+        scene.add(light);
+
+        // Camera
+        camera.position.z = 3;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+
+</html>

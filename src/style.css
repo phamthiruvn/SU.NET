@@ -1,3 +1,66 @@
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-LightIt.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-SemiboldIt.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-BoldIt.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('/fonts/Myriad Pro/MyriadPro-BlackIt.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,7 +79,7 @@ body::-webkit-scrollbar {
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Myriad Pro, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -31,7 +94,7 @@ body::-webkit-scrollbar {
 }
 
 #canvas-container {
-  height: 3000px;
+  height: 3500px;
 }
 
 #experience-canvas {
@@ -43,5 +106,7 @@ body::-webkit-scrollbar {
 
 #spacer {
   height: 4000px;
-  /* gives scroll room */
+  font-family: 'Myriad Pro', sans-serif;
+  font-weight: 700;
+  /* Bold */
 }

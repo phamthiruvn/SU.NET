@@ -10,15 +10,11 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
-import { DecalGeometry } from "three/examples/jsm/Addons.js";
-import { BufferGeometry } from "three";
+import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
 function first() {
   const fxaaPass = new ShaderPass(FXAAShader);
-  fxaaPass.material.uniforms["resolution"].value.set(
-    1 / window.innerWidth,
-    1 / window.innerHeight
-  );
+  fxaaPass.material.uniforms["resolution"].value.set(1 / window.innerWidth, 1 / window.innerHeight);
 
   gsap.registerPlugin(ScrollTrigger);
   const clock = new THREE.Clock();
@@ -28,8 +24,8 @@ function first() {
   const orange = new THREE.Color(0xff8000);
   const off_white = new THREE.Color(0xfcfcd7);
   const background_color = new THREE.Color(0x4f2201);
-  const background_color_light = new THREE.Color(0xd2b18a);
-  const yellow = new THREE.Color(0xffd1aa);
+  const background_color_light = new THREE.Color(0xd09b5e);
+  const yellow = new THREE.Color(0xfbca92);
 
   const canvas = document.querySelector("#experience-canvas");
   const size = { width: window.innerWidth, height: window.innerHeight };
@@ -40,12 +36,7 @@ function first() {
 
   const scene = new THREE.Scene();
 
-  let camera = new THREE.PerspectiveCamera(
-    30,
-    size.width / size.height,
-    0.1,
-    1000
-  );
+  let camera = new THREE.PerspectiveCamera(30, size.width / size.height, 0.1, 1000);
   const cameraGroup = new THREE.Group();
   cameraGroup.add(camera);
   scene.add(cameraGroup);
@@ -83,9 +74,17 @@ function first() {
   const normalMaterial = new THREE.MeshPhysicalMaterial({
     color: off_white,
     emissive: white,
-    emissiveIntensity: 0.1,
+    emissiveIntensity: 0.75,
     opacity: 1,
     roughness: 1,
+  });
+
+  const textMaterial = new THREE.MeshPhysicalMaterial({
+    color: off_white,
+    emissive:white,
+    emissiveIntensity: 0.2,
+
+    opacity: 1,
   });
 
   let liquidMaterial = null;
@@ -110,12 +109,6 @@ function first() {
     // mesh.material = liquidMaterial;
   });
 
-  // const planeGeometry2 = new THREE.PlaneGeometry( 15, 30 );
-  // const material2 = new THREE.MeshPhysicalMaterial( {color: background_color, side: THREE.DoubleSide, emissiveIntensity:0} );
-  // const plane2 = new THREE.Mesh( planeGeometry2, material2 );
-  // plane2.position.z = -5;
-  // scene.add( plane2 );
-
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 
   renderer.setSize(size.width, size.height);
@@ -131,12 +124,7 @@ function first() {
     exposure: 0.5,
   };
 
-  const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight),
-    1.5,
-    0.6,
-    0.2
-  );
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.6, 0.2);
   bloomPass.threshold = params.threshold;
   bloomPass.strength = params.strength;
   bloomPass.radius = params.radius;
@@ -187,6 +175,38 @@ function first() {
     cameraGroup.add(camera);
   });
 
+  // instantiate a loader
+  const loader = new SVGLoader();
+  const logotype = new THREE.Group();
+
+  loader.load("LOGOTYPE.svg", function (data) {
+    const paths = data.paths;
+
+    for (let i = 0; i < paths.length; i++) {
+      const path = paths[i];
+      const shapes = SVGLoader.createShapes(path);
+      for (let j = 0; j < shapes.length; j++) {
+        const shape = shapes[j];
+        const geometry = new THREE.ShapeGeometry(shape);
+        const mesh = new THREE.Mesh(geometry, textMaterial);
+        logotype.add(mesh);
+      }
+    }
+
+    // STEP 2: Compute bounding box of entire group
+    const box = new THREE.Box3().setFromObject(logotype);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+
+    // STEP 3: Reposition group to center at origin
+    logotype.children.forEach((child) => {
+      child.position.sub(center);
+    });
+    // STEP 4: Scale + flip Y axis
+    logotype.scale.set(0.01, -0.01, 0.01);
+    scene.add(logotype);
+  });
+
   window.addEventListener("resize", () => {
     size.width = window.innerWidth;
     size.height = window.innerHeight;
@@ -196,10 +216,7 @@ function first() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     composer.setSize(size.width, size.height);
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    fxaaPass.material.uniforms["resolution"].value.set(
-      1 / window.innerWidth,
-      1 / window.innerHeight
-    );
+    fxaaPass.material.uniforms["resolution"].value.set(1 / window.innerWidth, 1 / window.innerHeight);
 
     if (window.activeCamera) {
       window.activeCamera.aspect = camera.aspect;
@@ -265,9 +282,7 @@ function first() {
       const p = intersects[0].point;
       intersection.point.copy(p);
 
-      const normalMatrix = new THREE.Matrix3().getNormalMatrix(
-        sunMesh.matrixWorld
-      );
+      const normalMatrix = new THREE.Matrix3().getNormalMatrix(sunMesh.matrixWorld);
 
       const n = intersects[0].face.normal.clone();
       n.applyNormalMatrix(normalMatrix);
@@ -293,11 +308,7 @@ function first() {
     const lookAtTarget = p.clone().add(n);
     sphereMesh.lookAt(lookAtTarget);
     const scale = 1;
-    sphereMesh.scale.set(
-      scale * (1 + Math.random()),
-      scale * Math.random(),
-      scale
-    );
+    sphereMesh.scale.set(scale * (1 + Math.random()), scale * Math.random(), scale);
     scene.add(sphereMesh);
   }
 
@@ -327,9 +338,9 @@ function first() {
 
   let vrem = 0;
 
-function ease(t) {
-  return t === 0 ? 0 : Math.pow(2, 10 * (t - 1));
-}
+  function ease(t) {
+    return t === 0 ? 0 : Math.pow(2, 10 * (t - 1));
+  }
 
   function render() {
     vrem += 1;
@@ -340,7 +351,8 @@ function ease(t) {
       mixer.update(clock.getDelta());
     }
     // material swap when SUN crosses Y=0
-    if (sunMesh && sunMesh.position.y <= 0) {
+    const sunDown = sunMesh.position.y;
+    if (sunMesh && sunDown <= 0) {
       scene.background = yellow;
       base.forEach((child) => {
         if (child.isMesh) {
@@ -350,11 +362,10 @@ function ease(t) {
         }
       });
     }
-    if (sunMesh && sunMesh.position.y > 0) {
+    if (sunMesh && sunDown > 0) {
       scene.background = background_color
         .clone()
-        .lerp(background_color_light, ease((1 - sunMesh.position.y / 5)*0.8));
-        console.log(scene.background)
+        .lerp(background_color_light, ease((1 - sunDown / 5) * 0.8));
       base.forEach((child) => {
         if (child.isMesh) {
           child.material = normalMaterial;
@@ -364,9 +375,12 @@ function ease(t) {
       });
     }
 
-    let sphereMeshes = scene.children.filter(
-      (child) => child.name === "sphereMesh"
-    );
+    logotype.position.set(0, sunDown * 1.1, -2.5 - sunDown);
+
+    const logotype_scale = 0.015;
+    logotype.scale.set(logotype_scale, -logotype_scale, logotype_scale);
+
+    let sphereMeshes = scene.children.filter((child) => child.name === "sphereMesh");
     sphereMeshes.forEach((sphereMesh) => {
       sphereMesh.rotation.z += Math.random() * 0.05;
       sphereMesh.scale.x = 0.97 * sphereMesh.scale.x;

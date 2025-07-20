@@ -10,46 +10,229 @@
 </head>
 
 <body>
-
+  <div class="video-wrapper">
+    <button id="play">OPEN</button>
+    <video id="call" playsinline>
+      <source src="call.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div id="canvas-container">
-    <canvas id="experience-canvas"></canvas>
-
     <div id="hud" class="hud-overlay">
       <div class="hud-border">
         <div class="board">
-
+          <div class="slogan">[WE/SUN]</div>
           <div class="div1 boarddiv">
-            <div id="our-story">Our Story</div>
-            <div id="our-name">Our Name</div>
-            <div id="our-mivision">Our Mi/Vision</div>
-
+            <div id="our-story">[Our Story]</div>
+            <div id="our-name">[Our Name]</div>
+            <div id="our-mivision">[Our Mi/Vision]</div>
           </div>
           <div class="div2 boarddiv">
-            <div id="our-symbol">Our Symbol</div>
-            <div id="our-commitment">Our Commitments</div>
-            <div id="our-research">Our Research</div>
+            <div id="our-symbol">[Our Symbol]</div>
+            <div id="our-core-values">[Our Core Values]</div>
+            <div id="our-research">[Our Research]</div>
           </div>
-          <div class="div3 boarddiv">
+          <div class="div3 boarddiv" style="display: none;">
+            <div id="close-button">[✕]</div>
 
+            <div id="our-story-content">
+              <h2>BẮT ĐẦU CÙNG MẶT TRỜI</h2>
+              <p>Mặt Trời không chờ đợi. Không ngừng chuyển động, không ngừng chiếu sáng. Như thúc giục chúng ta bằng
+                lời nhắc nhở: “Bắt đầu nào!”</p>
+              <p>Dưới ánh dương, qua mỗi ngày, chúng ta gặp được những cơ hội tuyệt vời. Cơ hội để sáng tạo, để đối
+                mặt với thách thức, để vượt qua giới hạn của chính mình.</p>
+              <p>Hãy bắt đầu một chương mới cùng MẶT TRỜI, với tinh thần tràn đầy ánh nắng hy vọng.</p>
+              <br>
+              <h3>SUNET LÀ GÌ?</h3>
+              <h3>CHÚNG TÔI LÀ AI?</h3>
+              <p>Câu hỏi sẽ là chúng ta là ai, bởi mọi tác phẩm là kết quả của sự hợp tác giữa SUNET và khách hàng.
+              </p>
+
+              <ul>
+                <li><strong>#WeSun</strong>: Gắn với biểu tượng Mặt trời của thương hiệu, điều sẽ được nhắc lại nhiều
+                  lần.</li>
+                <li><strong>#WeRise</strong>: Chúng ta phát triển, như Mặt trời mọc. Chúng ta vượt lên mọi khó khăn và
+                  thách thức.</li>
+                <li><strong>#WeShine</strong>: Chúng ta tỏa sáng, như những tia nắng rực rỡ. Chúng ta là nguồn cảm
+                  hứng, đem sự sáng tạo tới mọi tác phẩm.</li>
+                <li><strong>#WeSet</strong>: Chúng ta định hình phong cách, tạo ra những quy chuẩn.</li>
+              </ul>
+
+              <p><strong>SUNET</strong> [ˈsʌnɛt] <em>noun</em>:<br>
+                SUNET Studio - một Công ty Quảng cáo Kỹ thuật số</p>
+            </div>
+
+            <div id="our-name-content">
+              <h2>SUN OF POETRY</h2>
+              <p>
+                <strong>Mặt trời của thơ ca</strong>, là hình ảnh mà cái tên <strong>SUNET</strong> mang tới,
+                đem thơ ca vào trong marketing, tỏa sáng như <strong>MẶT TRỜI</strong>.
+              </p>
+              <br>
+              <h2>NETWORK</h2>
+              <p>
+                <strong>Mạng lưới</strong> là điều cần thiết trên thị trường digital.
+                SUNET sẽ mang tới một mạng lưới để cung cấp, trao đổi và sẻ chia.
+              </p>
+
+              <p>
+                Hình ảnh của một công ty Digital Marketing đầy sáng tạo. Nó không chỉ là hình ảnh phản chiếu của mặt
+                trời,
+                mà còn là biểu tượng cho sự kết hợp độc đáo trong thế giới số.
+                <strong>SUNET</strong> là một bản giao hưởng giữa công nghệ và thơ ca, nơi sự tinh tế của từ ngữ được
+                dệt nên
+                nhờ những hiện đại và bằng cảm xúc.
+              </p>
+
+              <p>
+                Tạo ra những tác phẩm không chỉ đẹp về hình thức mà còn tinh tế trong nội dung.
+                Đó là sự pha trộn giữa <strong>truyền thống và đổi mới</strong>, giữa <strong>quá khứ và tương
+                  lai</strong>,
+                nơi mỗi dự án là một câu chuyện riêng biệt, mỗi chiến dịch là một vệt sáng không thể lu mờ.
+              </p>
+            </div>
+            <div id="our-mivision-content">
+              <h2>Sứ Mệnh của SUNET là tạo ra sự thay đổi tích cực trong lĩnh vực Digital Marketing.
+              </h2>
+
+              <blockquote>
+                “Chúng tôi mang lại giải pháp tối ưu và đột phá cho khách hàng, giúp họ thành công trong môi trường số
+                hóa ngày càng phức tạp.
+                Tôn trọng sự hợp tác, luôn hướng đến sáng tạo và hiệu quả, đóng góp vào cộng đồng thông qua những sản
+                phẩm truyền cảm hứng.”
+              </blockquote>
+              <br>
+              <h2>Xây dựng những chiến dịch độc đáo tạo ra giá trị thực sự cho khách hàng và <br> trở thành nguồn cảm
+                hứng
+                cho sự sáng tạo.</h2>
+
+              <blockquote>
+                “Chúng tôi hướng đến việc trở thành nguồn hỗ trợ đáng tin cậy, thấu hiểu sâu sắc về thị hiếu, xây dựng
+                các giải pháp đầy tính toàn diện,
+                sự đảm bảo trước mọi thách thức của thị trường. Sự thành công không chỉ là việc đạt được mục tiêu mà còn
+                là việc vượt qua mong đợi của mọi người.”
+              </blockquote>
+            </div>
+            <div id="our-symbol-content">
+              <h2>Biểu Tượng Mặt Trời của SUNET</h2>
+
+              <p>
+                Biểu tượng mặt trời với những tia nắng không chỉ thể hiện sự rực rỡ mà còn mang ý nghĩa của <strong>công
+                  nghệ</strong> và <strong>kết nối</strong>,
+                khi được thiết kế theo hình dáng giống biểu tượng <strong>wifi</strong>.
+              </p>
+
+              <p>
+                Các tia nắng này được bố trí <strong>đối xứng qua tâm mặt trời</strong>, thể hiện những ý nghĩa khác
+                nhau, cụ thể là <strong>POET</strong> và <strong>NET</strong> —
+                hai yếu tố cốt lõi đại diện cho sự kết hợp độc đáo giữa <strong>thơ ca</strong> và <strong>công nghệ kết
+                  nối</strong>.
+              </p>
+
+              <p>
+                Ngoài ra, những tia nắng còn tượng trưng cho <strong>5 giá trị cốt lõi</strong> của thương hiệu SUNET —
+                tất cả đều có xuất phát chung và lan tỏa từ trung tâm.
+                Con số <strong>5</strong> cũng là một con số hoàn hảo, đối xứng, xuất hiện nhiều trong thơ văn và nghệ
+                thuật như số dòng thơ, khuông nhạc,...
+              </p>
+
+              <p>
+                Để giữ cho logo không bị quá phân tán, một hình <strong>squircle</strong> (hình vuông bo góc) được thêm
+                vào nhằm tạo hiệu ứng thị giác cân bằng và
+                tập trung điểm nhìn vào trung tâm thương hiệu.
+              </p>
+            </div>
+            <div id="our-core-values-content">
+              <h2>5 Giá Trị Cốt Lõi của SUNET</h2>
+
+              <h3>Light (Ánh Sáng)</h3>
+              <p>
+                Chúng ta luôn tỏa sáng, như những tia nắng chiếu xuyên qua mây.
+                <strong>Light</strong> không chỉ là ánh sáng, mà còn đại diện cho sự sáng tạo, khát vọng và sự sang
+                trọng.
+              </p>
+
+              <h3>Inspiration (Cảm Hứng)</h3>
+              <p>
+                Chúng ta luôn kiếm tìm cảm hứng, để đổi mới và tạo ra những sản phẩm độc đáo.
+                <strong>Inspiration</strong> còn là giá trị mà thương hiệu luôn mang lại.
+              </p>
+
+              <h3>Growth (Sự Phát Triển)</h3>
+              <p>
+                Chúng ta không ngừng phát triển, như cây cỏ mọc vươn lên trong nắng.
+                <strong>Growth</strong> là sự cam kết với chính thương hiệu và khách hàng — sẽ không ngừng tiến xa
+                hơn.
+              </p>
+
+              <h3>Harmony (Hòa Hợp)</h3>
+              <p>
+                Chúng ta tạo ra sự kết hợp giữa công nghệ và thơ ca, sự cân bằng giữa hiện thực và câu chuyện.
+                <strong>Harmony</strong> là sự hòa hợp giữa cá nhân, tập thể, khách hàng và thương hiệu.
+              </p>
+
+              <h3>Triumph (Thành Công)</h3>
+              <p>
+                Chúng ta đạt được thành công, hoàn thành những mục tiêu, vượt qua những cột mốc và cảm nhận niềm hoan
+                hỉ của chiến thắng.
+              </p>
+
+            </div>
+            <div id="our-research-content">
+              <h2>Phân Tích SWOT</h2>
+
+              <h3>Điểm mạnh (Strengths)</h3>
+              <p>Độc đáo, sáng tạo, đa dạng hình thức, tăng trải nghiệm cảm xúc và kết nối với khách hàng.</p>
+
+              <h3>Điểm yếu (Weaknesses)</h3>
+              <p>Cần chuyên môn cao, thị hiếu kén chọn, tốn thời gian và nguồn lực, hình thức dễ bị giới hạn.</p>
+
+              <h3>Cơ hội (Opportunities)</h3>
+              <p>Mở rộng sang giáo dục và văn hóa, tận dụng công nghệ số, tạo nội dung tương tác hấp dẫn.</p>
+
+              <h3>Thách thức (Threats)</h3>
+              <p>Cạnh tranh mạnh, xu hướng thay đổi nhanh, dễ mất hiệu quả nếu không ứng dụng khéo léo.</p>
+            </div>
+            <div id="our-call-content">
+              <h2 style="font-size: 10rem">JOIN US!!!</h2>
+            </div>
+            <div id="our-help-content">
+              <h2 style="font-size: 8rem">WORK WITH US</h2>
+            </div>
           </div>
           <div class="div4 boarddiv">
-            <div id="our-call">Join us</div>
+            <div id="our-call">[Join Us!]</div>
             <div id="our-news"></div>
-            <div id="our-help">Work with us</div>
-
+            <div id="our-help">[Work with Us!]</div>
           </div>
         </div>
         <img src="hud.svg" class="hud-svg" alt="">
         <div id="progress-wrapper" class="hud-progress-mask">
           <img src="hud-progress.svg" id="progress-svg" class="hud-svg" alt="">
         </div>
+        <div class="arrow-container">
+          <p>[SCROLL DOWN]</p>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-1" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-2" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-3" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-4" alt=""></img>
+        </div>
+        <div class="arrow-container-2">
+          <p>[SCROLL UP]</p>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-1" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-2" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-3" alt=""></img>
+          <img src="arrow.svg" id="arrow-svg" class="arrow-svg arrow-4" alt=""></img>
+        </div>
       </div>
       <div class="hud-center-circle">
         <img src="LITTLE.svg" class="circle-svg" alt="HUD Circle" />
       </div>
     </div>
+
+    <canvas id="experience-canvas"></canvas>
     <script type="module" src="/src/main.js"></script>
     <script>
+      const speed = 500;
       document.addEventListener("DOMContentLoaded", function () {
         function splitLongLines(lines, maxChars = 60) {
           const result = [];
@@ -79,20 +262,13 @@
             );
             const target = document.getElementById("our-news");
             let index = 0;
-            const symbols = ["⭐", "✍️", "✌️", "☝️", "🌠", "💫", "✨", "❤️️", "💯", "😂", "😄", "😃", "😀", "😊", "😉", "😍", "😘", "😚", "😗", "😙", "😜", "😝", "😛", "😳", "😁",
-              "😔", "😌", "😒", "😞", "😣", "😢", "😭", "😪", "😥", "😰", "😅", "😓", "😩", "😫", "😨", "😱",
-              "😠", "😡", "😤", "😖", "😆", "😋", "😷", "😎", "😴", "😵", "😲", "😟", "😦", "😧", "😈", "👿",
-              "😮", "😬", "😐", "😕", "😯", "😶", "😇", "☺️", "😏", "😑", "🙃", "🙄", "☹️", "🤐", "🤑", "🤒",
-              "🤓", "🤔", "🤕", "🙁", "🙂", "🤗", "🤣", "🤠", "🤥", "🤤", "🤢", "🤧", "🤡", "🤖", "🖤", "💛",
-              "💙", "💜", "💚", "🧡", "❤️️", "💔", "💗", "💓", "💕", "💖", "💞", "💘", "💝", "❣️", "💌", "💋",
-              "😺", "😸", "😻", "😽", "😼", "🙀", "😿", "😹", "😾", "🙈", "🙉", "🙊", "💀", "👽", "👹", "👺",
-              "🤩", "🤨", "🤯", "🤪", "🤬", "🤮", "🤫", "🤭", "🧐", "🤭", "🤭", "🤭", "🤭", "🤭", "🤭",];
-            const prefix = "          ";
-            const suffix = "          ";
+            const symbols = ["S","U","N","E","T","/","-","+","=","0","1","2","3","4","5","6","7","8","9","*","^","$","#","!","☼","🌞","☀️","☀︎","❂","🔆","⋆☀︎｡","🌻"];
+            const prefix = "[[[[[";
+            const suffix = "]]]]]";
 
-            function scramble(originalText, duration = 500, interval = 50, callback) {
+            function scramble(originalText, duration = speed * 5, interval = speed / 2, callback) {
               const fullText = prefix + originalText + suffix;
-              const chars = fullText.split("");
+              const chars = fullText.toLocaleUpperCase().split("");
               const totalFrames = duration / interval;
               let frame = 0;
 
@@ -110,7 +286,7 @@
                 frame++;
                 if (frame > totalFrames) {
                   clearInterval(scrambleInterval);
-                  target.innerText = fullText;
+                  target.innerText = fullText.toLocaleUpperCase();
                   if (callback) callback();
                 }
               }, interval);
@@ -118,9 +294,9 @@
 
             const showLine = () => {
               if (index < lines.length) {
-                scramble(lines[index], 500, 50, () => {
+                scramble(lines[index], speed * 5, speed / 2, () => {
                   index++;
-                  setTimeout(showLine, 250);
+                  setTimeout(showLine, speed * 2);
                 });
               }
             };
@@ -132,7 +308,6 @@
           });
       });
     </script>
-
 </body>
 
 </html>

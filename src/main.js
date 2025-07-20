@@ -14,6 +14,111 @@ import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
 let progress = 0;
 
+document.addEventListener("DOMContentLoaded", function () {
+  const clickableDivs = document.querySelectorAll(".div1 > div, .div2 > div, .div4 > div");
+  const div3 = document.querySelector(".div3");
+  const contentDivs = div3.querySelectorAll("div[id$='-content']");
+  const closeButton = document.getElementById("close-button");
+
+  function hideDiv3WithAnimation() {
+    div3.classList.remove("show");
+    div3.classList.add("closing");
+
+    // Let animation finish before hiding
+    setTimeout(() => {
+      div3.style.display = "none";
+      div3.classList.remove("closing");
+
+      // Hide all inner content AFTER animation
+      contentDivs.forEach(c => (c.style.display = "none"));
+    }, 400);
+  }
+
+  clickableDivs.forEach(div => {
+    div.style.cursor = "pointer";
+
+    div.onclick = function () {
+      const targetId = div.id + "-content";
+      const targetContent = document.getElementById(targetId);
+
+      if (!targetContent) return;
+
+      const isAlreadyVisible = div3.style.display === "flex" && targetContent.style.display === "block";
+
+      if (isAlreadyVisible) {
+        hideDiv3WithAnimation();
+      } else {
+        // Ensure div3 is displayed before showing content
+        div3.style.display = "flex";
+        div3.classList.remove("closing");
+        div3.classList.add("show");
+
+        // Show only the matching inner content
+        contentDivs.forEach(c => (c.style.display = "none"));
+        targetContent.style.display = "block";
+      }
+    };
+  });
+
+  closeButton.onclick = function () {
+    hideDiv3WithAnimation();
+  };
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const miVisionDiv = document.getElementById("our-mivision");
+  let isM = true;
+  setInterval(() => {
+    miVisionDiv.textContent = isM ? "[Our [M]ission]" : "[Our [V]ision]";
+    isM = !isM;
+  }, 1000); // every 1000ms = 1 second
+});
+
+window.onload = function () {
+  const arrows = document.querySelectorAll('.arrow-svg');
+  const delay = 200; // Set the delay once here
+
+  arrows.forEach(arrow => {
+    arrow.style.opacity = 0;
+  });
+
+  function fadeArrowsSequence() {
+    // Fade In
+    arrows.forEach((arrow, index) => {
+      setTimeout(() => {
+        arrow.style.opacity = 0.5;
+      }, index * delay);
+    });
+
+    // Fade Out
+    arrows.forEach((arrow, index) => {
+      setTimeout(() => {
+        arrow.style.opacity = 0;
+      }, (arrows.length + index) * delay);
+    });
+  }
+
+  // Repeat the sequence
+  setInterval(() => {
+    fadeArrowsSequence();
+  }, arrows.length * 2 * delay);
+};
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".div3.boarddiv");
+
+    if (!container) return;
+
+    const tagsToWrap = ["h2", "h3", "p", "li"];
+
+    tagsToWrap.forEach(tag => {
+      container.querySelectorAll(tag).forEach(el => {
+        el.textContent = `[ ${el.textContent} ]`;
+      });
+    });
+  });
+
+
 function first() {
   const fxaaPass = new ShaderPass(FXAAShader);
   fxaaPass.material.uniforms["resolution"].value.set(1 / window.innerWidth, 1 / window.innerHeight);
@@ -374,7 +479,7 @@ function first() {
     // material swap when SUN crosses Y=0
     const sunDown = sunMesh.position.y;
     if (sunMesh && sunDown == 0) {
-      scene.background = yellow;
+      scene.background = white;
 
       base.forEach((child) => {
         if (child.isMesh) {
@@ -436,18 +541,42 @@ function first() {
 
 function logProgress(progress) {
   const progressSVG = document.getElementById("progress-svg");
-  if (!progressSVG) return;
-  let percent = 100;
+  const slogan = document.querySelector(".slogan");
+
+  if (!progressSVG || !slogan) {
+    console.warn("Missing progressSVG or slogan element");
+    return;
+  }
+
+  let percent = 0;
+
   if (progress > 4.5) {
     percent = 70;
+    slogan.textContent = "[WE/SUN]";
   } else if (progress > 3.5) {
     percent = 50;
+    slogan.textContent = "[WE/RISE]";
   } else if (progress > 1) {
     percent = 30;
+    slogan.textContent = "[WE/SHINE]";
   } else {
-    percent = 0;
+    slogan.textContent = "[WE/SET]";
   }
+
   progressSVG.style.clipPath = `inset(0 ${percent}% 0 0)`;
-}
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("play");
+  const wrapper = document.querySelector(".video-wrapper");
+  const video = document.getElementById("call");
+
+  button.addEventListener("click", () => {
+    wrapper.classList.add("show");
+    video.play();
+    button.style.display = "none"; // optional: hide button after playing
+  });
+});
 
 first();
+

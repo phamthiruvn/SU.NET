@@ -6,15 +6,25 @@
   <link rel="icon" type="image/svg+xml" href="LOGO.svg" />
   <link rel="stylesheet" href="/src/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title >SUNET</title>
+  <title>SUNET</title>
 </head>
 
 <body>
+
   <div id="canvas-container">
     <canvas id="experience-canvas"></canvas>
-  </div>
-  <div id="spacer">SUNET HERE</div>
-  <script type="module" src="/src/main.js"></script>
+    <div id="hud" class="hud-overlay">
+      <div class="hud-border">
+        <img src="hud.svg" class="hud-svg" alt="">
+        <div id="progress-wrapper" class="hud-progress-mask">
+          <img src="hud-progress.svg" id="progress-svg" class="hud-svg" alt="">
+        </div>
+      </div>
+      <div class="hud-center-circle">
+        <img src="LITTLE.svg" class="circle-svg" alt="HUD Circle" />
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>

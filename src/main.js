@@ -12,6 +12,9 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
+
+let progress = 0;
+
 function first() {
   const fxaaPass = new ShaderPass(FXAAShader);
   fxaaPass.material.uniforms["resolution"].value.set(1 / window.innerWidth, 1 / window.innerHeight);
@@ -81,7 +84,7 @@ function first() {
 
   const textMaterial = new THREE.MeshPhysicalMaterial({
     color: off_white,
-    emissive:white,
+    emissive: white,
     emissiveIntensity: 0.2,
 
     opacity: 1,
@@ -175,6 +178,22 @@ function first() {
     cameraGroup.add(camera);
   });
 
+  // const cityLoader = new GLTFLoader();
+  // cityLoader.load(
+  //   "/models/city.gltf", // Path to your gltf/glb file
+  //   function (gltf) {
+  //     const model = gltf.scene;
+  //     model.scale.set(1,1,1);
+  //       model.position.set(0,-2,-5);
+  //       model.rotation.set(0,3.14,0);
+  //     scene.add(model);
+  //   },
+  //   undefined, // onProgress
+  //   function (error) {
+  //     console.error('An error happened while loading the model', error);
+  //   }
+  // );
+
   // instantiate a loader
   const loader = new SVGLoader();
   const logotype = new THREE.Group();
@@ -235,7 +254,7 @@ function first() {
     ScrollTrigger.create({
       trigger: "#canvas-container",
       start: "top top",
-      end: "+=2000", // or whatever fits your animation length
+      end: "+=1500", // or whatever fits your animation length
       scrub: 0.1,
 
       animation: tl,
@@ -319,8 +338,8 @@ function first() {
   const smoothedRotation = new THREE.Euler(); // Smoothly interpolated rotation
 
   // Limit max tilt angle in radians
-  const maxTiltX = THREE.MathUtils.degToRad(2); // pitch (up/down)
-  const maxTiltY = THREE.MathUtils.degToRad(8); // yaw (left/right)
+  const maxTiltX = THREE.MathUtils.degToRad(1); // pitch (up/down)
+  const maxTiltY = THREE.MathUtils.degToRad(2); // yaw (left/right)
 
   function onPointerMove(event) {
     if (event.isPrimary) {
@@ -343,7 +362,10 @@ function first() {
   }
 
   function render() {
-    vrem += 1;
+    if (sunMesh) {
+      progress = sunMesh.position.y;
+    };
+    logProgress(progress);
     requestAnimationFrame(render);
     if (mixer) {
       // GSAP sets the time, mixer applies the pose.
@@ -352,8 +374,9 @@ function first() {
     }
     // material swap when SUN crosses Y=0
     const sunDown = sunMesh.position.y;
-    if (sunMesh && sunDown <= 0) {
-      scene.background = yellow;
+    if (sunMesh && sunDown == 0) {
+      scene.background = white;
+
       base.forEach((child) => {
         if (child.isMesh) {
           child.material = sunMaterial;
@@ -375,9 +398,10 @@ function first() {
       });
     }
 
-    logotype.position.set(0, sunDown * 1.1, -2.5 - sunDown);
+    logotype.position.set(0, sunDown > 1 ? sunDown * 1.1 : 1, -3.5 - sunDown);
 
-    const logotype_scale = 0.015;
+    const logotype_scale = 0.015 * (sunDown > 4.75 ? sunDown / 5 : 0);
+
     logotype.scale.set(logotype_scale, -logotype_scale, logotype_scale);
 
     let sphereMeshes = scene.children.filter((child) => child.name === "sphereMesh");
@@ -411,6 +435,27 @@ function first() {
     // renderer.render(scene, camera);
   }
   render();
+
+}
+
+function logProgress(progress) {
+  const progressSVG = document.getElementById("progress-svg");
+  if (!progressSVG) return;
+  let percent = 100;
+  if (progress > 4.5) {
+    percent = 70;
+  }
+  else if (progress > 3.5) {
+    percent = 50;
+  }
+  else if (progress > 1) {
+    percent = 30;
+  }
+  else {
+    percent = 0;
+  }
+  progressSVG.style.clipPath = `inset(0 ${percent}% 0 0)`;
 }
 
 first();
+

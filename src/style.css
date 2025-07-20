@@ -71,6 +71,7 @@
 body {
   margin: 0;
   padding: 0;
+
 }
 
 body::-webkit-scrollbar {
@@ -94,7 +95,7 @@ body::-webkit-scrollbar {
 }
 
 #canvas-container {
-  height: 3500px;
+  height: 2500px;
 }
 
 #experience-canvas {
@@ -104,8 +105,123 @@ body::-webkit-scrollbar {
   height: 100%;
 }
 
+/* Main HUD Overlay */
+.hud-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* use full viewport height */
+  z-index: 10;
+  pointer-events: none;
+  font-family: 'Myriad Pro', sans-serif;
+  color: white;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Border lines or frame (simplified here) */
+.hud-border {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  overflow: hidden;
+  /* important to clip overflow */
+}
+
+.hud-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* or contain */
+  pointer-events: none;
+  /* optional if it's purely decorative */
+}
+
+.hud-progress-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+
+}
+
+.hud-progress-svg {
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  opacity: 0.75;
+}
+
+/* Center rings wrapper */
+.hud-center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: visible;
+  animation: spinScale 8s linear infinite;
+}
+
+/* Rotate and scale */
+@keyframes spinScale {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Dashed stroke circle overlay */
+.hud-center-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px dashed #ffffff;
+  border-radius: 50%;
+  animation: dashRotate 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Rotate dashed stroke effect */
+@keyframes dashRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle-svg {
+  width: 75%;
+  height: auto;
+  pointer-events: none;
+}
+
+
+
 #spacer {
-  height: 4000px;
   font-family: 'Myriad Pro', sans-serif;
   font-weight: 700;
   /* Bold */

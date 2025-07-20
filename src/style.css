@@ -209,10 +209,11 @@ strong {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 234%;
+  font-size: 200%;
   font-weight: 800;
   color: white;
   word-spacing: 20%;
+  cursor: pointer;
 }
 
 .div3 {
@@ -281,7 +282,7 @@ strong {
 }
 
 #close-button:hover {
-  transform: scale(-1,1);
+  transform: scale(-1, 1);
 }
 
 .board .div4 {
@@ -474,54 +475,29 @@ strong {
   pointer-events: none;
 }
 
-.video-wrapper {
-  position: absolute;
-  top: 22%;
-  display: none;
-  justify-content: center;
-  z-index: 1000;
-  pointer-events: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
+.video-wrapper {
+  display: none;
+  position: sticky;
+  /* Changed from absolute */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 15vh;
+  pointer-events: auto;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50vh;
 }
 
 .video-wrapper video {
-  width: auto;
-  height: auto;
-  max-width: 55vw;
-  max-height: 55vh;
-  object-fit: contain;
-  border-radius: 5px;
-  display: none;
-  border: white solid 2px;
-
-  /* optional */
+  max-width: 40vw;
+  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  opacity: 0.99;
+  mix-blend-mode: lighten;
+  background-color: white;
 }
-
-.video-wrapper button {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  height: 60px;
-}
-
-button {
-  background-color: rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: white solid 2px;
-  cursor: pointer;
-  aspect-ratio: 6/1;
-  border-radius: 20px;
-  cursor: pointer;
-  color: white;
-  font-weight: 600;
-  font-size: 20px;
-}
-
 
 #spacer {
   font-family: "Myriad Pro", sans-serif;

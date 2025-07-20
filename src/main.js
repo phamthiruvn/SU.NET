@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 1000); // every 1000ms = 1 second
 });
 
+
 window.onload = function () {
   const arrows = document.querySelectorAll('.arrow-svg');
   const delay = 200; // Set the delay once here
@@ -104,19 +105,20 @@ window.onload = function () {
   }, arrows.length * 2 * delay);
 };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".div3.boarddiv");
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".div3.boarddiv");
 
-    if (!container) return;
+  if (!container) return;
 
-    const tagsToWrap = ["h2", "h3", "p", "li"];
+  const tagsToWrap = ["h2", "h3", "p", "li"];
 
-    tagsToWrap.forEach(tag => {
-      container.querySelectorAll(tag).forEach(el => {
-        el.textContent = `[ ${el.textContent} ]`;
-      });
+  tagsToWrap.forEach(tag => {
+    container.querySelectorAll(tag).forEach(el => {
+      el.textContent = `[ ${el.textContent} ]`;
     });
   });
+});
+
 
 
 function first() {
@@ -539,6 +541,9 @@ function first() {
   render();
 }
 
+let wessageCount = 0;
+let wessageInterval = null;
+
 function logProgress(progress) {
   const progressSVG = document.getElementById("progress-svg");
   const slogan = document.querySelector(".slogan");
@@ -549,34 +554,93 @@ function logProgress(progress) {
   }
 
   let percent = 0;
+  const videoWrapper = document.querySelector(".video-wrapper");
 
+  // Stop WESSAGE animation if progress > 0
+  if (progress > 0.001) {
+    videoWrapper.style.display = "none";
+    if (wessageInterval) {
+      clearInterval(wessageInterval);
+      wessageInterval = null;
+    }
+  }
+
+  // Update slogan based on progress
   if (progress > 4.5) {
     percent = 70;
+    slogan.style.color = "white";
     slogan.textContent = "[WE/SUN]";
   } else if (progress > 3.5) {
     percent = 50;
+    slogan.style.color = "white";
     slogan.textContent = "[WE/RISE]";
   } else if (progress > 1) {
     percent = 30;
+    slogan.style.color = "white";
     slogan.textContent = "[WE/SHINE]";
-  } else {
+  } else if (progress > 0.001) {
+    slogan.style.color = "white";
     slogan.textContent = "[WE/SET]";
+  } else {
+    slogan.style.color = "rgba(0, 0, 0, 0.75)";
+    if (!wessageInterval) {
+      // Start WESSAGE animation
+      wessageCount = 0;
+      slogan.textContent = "WESSAGE";
+
+      wessageInterval = setInterval(() => {
+        slogan.textContent = "WESSAGE" + ">".repeat(wessageCount);
+        if (wessageCount < 4) {
+          wessageCount++;
+        } else {
+          wessageCount = 0;
+          slogan.textContent = "WESSAGE>>>CL1K"
+        }
+      }, 500);
+    }
   }
 
+
   progressSVG.style.clipPath = `inset(0 ${percent}% 0 0)`;
-};
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("play");
-  const wrapper = document.querySelector(".video-wrapper");
+document.addEventListener("DOMContentLoaded", function () {
+  const slogan = document.querySelector(".slogan");
+  const videoWrapper = document.querySelector(".video-wrapper");
   const video = document.getElementById("call");
+  if (!slogan || !videoWrapper) return;
 
-  button.addEventListener("click", () => {
-    wrapper.classList.add("show");
-    video.play();
-    button.style.display = "none"; // optional: hide button after playing
+  slogan.addEventListener("click", () => {
+    if (slogan.textContent.includes("WESSAGE")) {
+      videoWrapper.style.display = "flex";
+      video.play();
+    }
+  });
+  video.addEventListener("ended", () => {
+
+    videoWrapper.style.display = "none";
+  scrollToTop(10000); // scroll to top in 1.5s
+
   });
 });
 
-first();
+function scrollToTop(duration = 1000) {
+  const start = window.scrollY;
+  const startTime = performance.now();
 
+  function scroll(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3); // EaseOutCubic
+
+    window.scrollTo(0, start * (1 - ease));
+
+    if (progress < 1) {
+      requestAnimationFrame(scroll);
+    }
+  }
+
+  requestAnimationFrame(scroll);
+}
+
+first();

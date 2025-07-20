@@ -12,7 +12,6 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
-
 let progress = 0;
 
 function first() {
@@ -364,7 +363,7 @@ function first() {
   function render() {
     if (sunMesh) {
       progress = sunMesh.position.y;
-    };
+    }
     logProgress(progress);
     requestAnimationFrame(render);
     if (mixer) {
@@ -375,7 +374,7 @@ function first() {
     // material swap when SUN crosses Y=0
     const sunDown = sunMesh.position.y;
     if (sunMesh && sunDown == 0) {
-      scene.background = white;
+      scene.background = yellow;
 
       base.forEach((child) => {
         if (child.isMesh) {
@@ -386,9 +385,7 @@ function first() {
       });
     }
     if (sunMesh && sunDown > 0) {
-      scene.background = background_color
-        .clone()
-        .lerp(background_color_light, ease((1 - sunDown / 5) * 0.8));
+      scene.background = background_color.clone().lerp(background_color_light, ease((1 - sunDown / 5) * 0.8));
       base.forEach((child) => {
         if (child.isMesh) {
           child.material = normalMaterial;
@@ -435,7 +432,6 @@ function first() {
     // renderer.render(scene, camera);
   }
   render();
-
 }
 
 function logProgress(progress) {
@@ -444,18 +440,14 @@ function logProgress(progress) {
   let percent = 100;
   if (progress > 4.5) {
     percent = 70;
-  }
-  else if (progress > 3.5) {
+  } else if (progress > 3.5) {
     percent = 50;
-  }
-  else if (progress > 1) {
+  } else if (progress > 1) {
     percent = 30;
-  }
-  else {
+  } else {
     percent = 0;
   }
   progressSVG.style.clipPath = `inset(0 ${percent}% 0 0)`;
 }
 
 first();
-

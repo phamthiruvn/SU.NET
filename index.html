@@ -13,8 +13,32 @@
 
   <div id="canvas-container">
     <canvas id="experience-canvas"></canvas>
+
     <div id="hud" class="hud-overlay">
       <div class="hud-border">
+        <div class="board">
+
+          <div class="div1 boarddiv">
+            <div id="our-story">Our Story</div>
+            <div id="our-name">Our Name</div>
+            <div id="our-mivision">Our Mi/Vision</div>
+
+          </div>
+          <div class="div2 boarddiv">
+            <div id="our-symbol">Our Symbol</div>
+            <div id="our-commitment">Our Commitments</div>
+            <div id="our-research">Our Research</div>
+          </div>
+          <div class="div3 boarddiv">
+
+          </div>
+          <div class="div4 boarddiv">
+            <div id="our-call">Join us</div>
+            <div id="our-news"></div>
+            <div id="our-help">Work with us</div>
+
+          </div>
+        </div>
         <img src="hud.svg" class="hud-svg" alt="">
         <div id="progress-wrapper" class="hud-progress-mask">
           <img src="hud-progress.svg" id="progress-svg" class="hud-svg" alt="">
@@ -25,6 +49,90 @@
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function splitLongLines(lines, maxChars = 60) {
+          const result = [];
+          for (const line of lines) {
+            const words = line.split(" ");
+            let currentLine = "";
+
+            for (const word of words) {
+              if ((currentLine + word).length <= maxChars) {
+                currentLine += word + " ";
+              } else {
+                result.push(currentLine.trim());
+                currentLine = word + " ";
+              }
+            }
+
+            if (currentLine.trim()) result.push(currentLine.trim());
+          }
+          return result;
+        }
+
+        fetch("/SotayThuonghieu_extracted.txt")
+          .then(response => response.text())
+          .then(text => {
+            const lines = splitLongLines(
+              text.split(/\r?\n/).filter(line => line.trim() !== "")
+            );
+            const target = document.getElementById("our-news");
+            let index = 0;
+            const symbols = ["⭐", "✍️", "✌️", "☝️", "🌠", "💫", "✨", "❤️️", "💯", "😂", "😄", "😃", "😀", "😊", "😉", "😍", "😘", "😚", "😗", "😙", "😜", "😝", "😛", "😳", "😁",
+              "😔", "😌", "😒", "😞", "😣", "😢", "😭", "😪", "😥", "😰", "😅", "😓", "😩", "😫", "😨", "😱",
+              "😠", "😡", "😤", "😖", "😆", "😋", "😷", "😎", "😴", "😵", "😲", "😟", "😦", "😧", "😈", "👿",
+              "😮", "😬", "😐", "😕", "😯", "😶", "😇", "☺️", "😏", "😑", "🙃", "🙄", "☹️", "🤐", "🤑", "🤒",
+              "🤓", "🤔", "🤕", "🙁", "🙂", "🤗", "🤣", "🤠", "🤥", "🤤", "🤢", "🤧", "🤡", "🤖", "🖤", "💛",
+              "💙", "💜", "💚", "🧡", "❤️️", "💔", "💗", "💓", "💕", "💖", "💞", "💘", "💝", "❣️", "💌", "💋",
+              "😺", "😸", "😻", "😽", "😼", "🙀", "😿", "😹", "😾", "🙈", "🙉", "🙊", "💀", "👽", "👹", "👺",
+              "🤩", "🤨", "🤯", "🤪", "🤬", "🤮", "🤫", "🤭", "🧐", "🤭", "🤭", "🤭", "🤭", "🤭", "🤭",];
+            const prefix = "          ";
+            const suffix = "          ";
+
+            function scramble(originalText, duration = 500, interval = 50, callback) {
+              const fullText = prefix + originalText + suffix;
+              const chars = fullText.split("");
+              const totalFrames = duration / interval;
+              let frame = 0;
+
+              const scrambleInterval = setInterval(() => {
+                const scrambled = chars.map((char, i) => {
+                  // Keep prefix and suffix unchanged
+                  if (i < prefix.length || i >= fullText.length - suffix.length) return char;
+                  if (char === " ") return " ";
+                  return Math.random() < (frame / totalFrames)
+                    ? char
+                    : symbols[Math.floor(Math.random() * symbols.length)];
+                });
+
+                target.innerText = scrambled.join("");
+                frame++;
+                if (frame > totalFrames) {
+                  clearInterval(scrambleInterval);
+                  target.innerText = fullText;
+                  if (callback) callback();
+                }
+              }, interval);
+            }
+
+            const showLine = () => {
+              if (index < lines.length) {
+                scramble(lines[index], 500, 50, () => {
+                  index++;
+                  setTimeout(showLine, 250);
+                });
+              }
+            };
+
+            if (lines.length > 0) showLine();
+          })
+          .catch(error => {
+            console.error("Error loading the text file:", error);
+          });
+      });
+    </script>
+
 </body>
 
 </html>

@@ -616,12 +616,17 @@ document.addEventListener("DOMContentLoaded", function () {
       video.play();
     }
   });
-  video.addEventListener("ended", () => {
-
-    videoWrapper.style.display = "none";
-  scrollToTop(10000); // scroll to top in 1.5s
-
-  });
+    let playCount = 0;
+    video.addEventListener("ended", () => {
+      playCount++;
+      if (playCount < 2) {
+        video.currentTime = 0;
+        video.play();
+      } else {
+        videoWrapper.style.display = "none";
+        scrollToTop(10000);
+      }
+    });
 });
 
 function scrollToTop(duration = 1000) {

@@ -249,14 +249,33 @@ form button:hover {
 }
 
 #symbol {
-  width: 22%;
-  aspect-ratio: 1/1;
+  width: 20%;
+  height: 20%;
+  top:20%;
+  position: absolute;
   display: inline-block;
-  opacity: 1 !important;
-
 }
 
+#symbol img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transition: opacity 2s ease;
+}
 
+#symbol .hover {
+  opacity: 0;
+}
+
+#symbol:hover .hover {
+  opacity: 1;
+}
+
+#symbol:hover .default {
+  opacity: 0;
+}
 
 .slogan {
   grid-area: 1 / 3 / 2 / 4;

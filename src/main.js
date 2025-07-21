@@ -619,11 +619,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let playCount = 0;
     video.addEventListener("ended", () => {
       playCount++;
-      if (playCount < 2) {
+      if (playCount < 3) {
         video.currentTime = 0;
         video.play();
       } else {
         videoWrapper.style.display = "none";
+        playCount =0;
         scrollToTop(10000);
       }
     });

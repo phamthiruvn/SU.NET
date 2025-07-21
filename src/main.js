@@ -14,6 +14,8 @@ import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
 let progress = 0;
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const clickableDivs = document.querySelectorAll(".div1 > div, .div2 > div, .div4 > div");
   const div3 = document.querySelector(".div3");
@@ -586,15 +588,16 @@ function logProgress(progress) {
     if (!wessageInterval) {
       // Start WESSAGE animation
       wessageCount = 0;
-      slogan.textContent = "WESSAGE";
+      slogan.textContent = "NEWESSAGE";
 
       wessageInterval = setInterval(() => {
-        slogan.textContent = "WESSAGE" + ">".repeat(wessageCount);
+        slogan.textContent = "NEWESSAGE" + ">".repeat(wessageCount);
         if (wessageCount < 4) {
           wessageCount++;
         } else {
           wessageCount = 0;
-          slogan.textContent = "WESSAGE>>>CL1K"
+          slogan.textContent = "NEWESSAGE>>>\nCL1KN0W!!!"
+        
         }
       }, 500);
     }
@@ -611,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!slogan || !videoWrapper) return;
 
   slogan.addEventListener("click", () => {
-    if (slogan.textContent.includes("WESSAGE")) {
+    if (slogan.textContent.includes("NEWESSAGE")) {
       videoWrapper.style.display = "flex";
       video.play();
     }
